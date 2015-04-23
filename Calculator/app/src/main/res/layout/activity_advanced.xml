@@ -115,9 +115,7 @@
             android:text=""
             android:height="100dp"/>
 
-        <Button
-            android:text=""
-            android:height="100dp"/>
+        <Button android:text=""/>
 
     </GridLayout>
 

@@ -120,6 +120,13 @@ public class Calculator extends ActionBarActivity {
         divide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(input.getText().charAt(input.getText().length()-1) == '/' ||
+                        input.getText().charAt(input.getText().length()-1) == 'x' ||
+                        input.getText().charAt(input.getText().length()-1) == '-' ||
+                        input.getText().charAt(input.getText().length()-1) == '+')
+                {
+                    input.setText(input.getText().subSequence(0, input.getText().length() - 1));
+                }
                 input.setText(input.getText().append('/'));
             }
         });
@@ -127,6 +134,13 @@ public class Calculator extends ActionBarActivity {
         multiply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(input.getText().charAt(input.getText().length()-1) == '/' ||
+                        input.getText().charAt(input.getText().length()-1) == 'x' ||
+                        input.getText().charAt(input.getText().length()-1) == '-' ||
+                        input.getText().charAt(input.getText().length()-1) == '+')
+                {
+                    input.setText(input.getText().subSequence(0, input.getText().length() - 1));
+                }
                 input.setText(input.getText().append('x'));
             }
         });
@@ -134,6 +148,13 @@ public class Calculator extends ActionBarActivity {
         subtract.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(input.getText().charAt(input.getText().length()-1) == '/' ||
+                        input.getText().charAt(input.getText().length()-1) == 'x' ||
+                        input.getText().charAt(input.getText().length()-1) == '-' ||
+                        input.getText().charAt(input.getText().length()-1) == '+')
+                {
+                    input.setText(input.getText().subSequence(0, input.getText().length() - 1));
+                }
                 input.setText(input.getText().append('-'));
             }
         });
@@ -141,6 +162,13 @@ public class Calculator extends ActionBarActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(input.getText().charAt(input.getText().length()-1) == '/' ||
+                        input.getText().charAt(input.getText().length()-1) == 'x' ||
+                        input.getText().charAt(input.getText().length()-1) == '-' ||
+                        input.getText().charAt(input.getText().length()-1) == '+')
+                {
+                    input.setText(input.getText().subSequence(0, input.getText().length() - 1));
+                }
                 input.setText(input.getText().append('+'));
             }
         });
