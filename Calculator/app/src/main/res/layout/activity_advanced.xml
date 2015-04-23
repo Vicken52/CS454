@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:id="@+id/editText"
-        android:text=""
+        android:text="@string/delete"
         android:textSize="35sp"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
@@ -42,83 +42,81 @@
         android:columnCount="4">
 
         <Button
-            android:text="7"
-            android:id="@+id/seven"
+            android:text="Sin"
+            android:id="@+id/sine"
             android:height="100dp"/>
 
         <Button
-            android:text="8"
-            android:id="@+id/eight"
+            android:text="Cos"
+            android:id="@+id/cosine"
             android:height="100dp"/>
 
         <Button
-            android:text="9"
-            android:id="@+id/nine"
+            android:text="Tan"
+            android:id="@+id/tangent"
             android:height="100dp"/>
 
         <Button
-            android:text="/"
-            android:id="@+id/divide"
+            android:text="i"
+            android:id="@+id/i"
             android:height="100dp"/>
 
         <Button
-            android:text="4"
-            android:id="@+id/four"
+            android:text="ln"
+            android:id="@+id/ln"
             android:height="100dp"/>
 
         <Button
-            android:text="5"
-            android:id="@+id/five"
+            android:text="log"
+            android:id="@+id/log"
             android:height="100dp"/>
 
         <Button
-            android:text="6"
-            android:id="@+id/six"
+            android:text="π"
+            android:id="@+id/pi"
             android:height="100dp"/>
 
         <Button
-            android:text="x"
-            android:id="@+id/multiply"
+            android:text="e"
+            android:id="@+id/e"
             android:height="100dp"/>
 
         <Button
-            android:text="1"
-            android:id="@+id/one"
+            android:text="%"
+            android:id="@+id/mod"
             android:height="100dp"/>
 
         <Button
-            android:text="2"
-            android:id="@+id/two"
+            android:text="!"
+            android:id="@+id/factorial"
             android:height="100dp"/>
 
         <Button
-            android:text="3"
-            android:id="@+id/three"
+            android:text="√"
+            android:id="@+id/root"
             android:height="100dp"/>
 
         <Button
-            android:text="-"
-            android:id="@+id/minus"
+            android:text="^"
+            android:id="@+id/power"
             android:height="100dp"/>
 
         <Button
-            android:text="."
-            android:id="@+id/decimal"
+            android:text="("
+            android:id="@+id/open"
             android:height="100dp"/>
 
         <Button
-            android:text="0"
-            android:id="@+id/zero"
+            android:text=")"
+            android:id="@+id/closed"
             android:height="100dp"/>
 
         <Button
-            android:text="="
-            android:id="@+id/equal"
+            android:text=""
             android:height="100dp"/>
 
         <Button
-            android:text="+"
-            android:id="@+id/plus"
+            android:text=""
             android:height="100dp"/>
 
     </GridLayout>
