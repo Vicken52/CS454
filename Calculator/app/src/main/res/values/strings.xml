@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">calculator</string>
+    <string name="app_name">Calculator</string>
     <string name="clear">Clr</string>
     <string name="delete">Del</string>
     <string name="action_settings">Settings</string>

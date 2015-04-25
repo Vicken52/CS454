@@ -7,12 +7,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 
 
 public class Calculator extends ActionBarActivity {
     private EditText input;
     private Button zero, one, two, three, four, five, six, seven, eight, nine;
     private Button del, divide, multiply, subtract, add, decimal, equal;
+    private int actionLocation;
+    private char action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +131,9 @@ public class Calculator extends ActionBarActivity {
                     input.setText(input.getText().subSequence(0, input.getText().length() - 1));
                 }
                 input.setText(input.getText().append('/'));
+
+                action = '/';
+                actionLocation = input.getText().length() - 1;
             }
         });
 
@@ -142,6 +148,9 @@ public class Calculator extends ActionBarActivity {
                     input.setText(input.getText().subSequence(0, input.getText().length() - 1));
                 }
                 input.setText(input.getText().append('x'));
+
+                action = '*';
+                actionLocation = input.getText().length() - 1;
             }
         });
 
@@ -156,6 +165,9 @@ public class Calculator extends ActionBarActivity {
                     input.setText(input.getText().subSequence(0, input.getText().length() - 1));
                 }
                 input.setText(input.getText().append('-'));
+
+                action = '-';
+                actionLocation = input.getText().length() - 1;
             }
         });
 
@@ -170,6 +182,30 @@ public class Calculator extends ActionBarActivity {
                     input.setText(input.getText().subSequence(0, input.getText().length() - 1));
                 }
                 input.setText(input.getText().append('+'));
+
+                action = '+';
+                actionLocation = input.getText().length() - 1;
+            }
+        });
+
+        equal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                double value;
+                double temp;
+                String text = String.valueOf(input.getText());
+
+                value = Double.parseDouble(text.substring(0, actionLocation - 1));
+                temp = Double.parseDouble(text.substring(actionLocation));
+
+                switch (action) {
+                    case '/':  value = value / temp;
+                    case '*':  value = value * temp;
+                    case '+':  value = value + temp;
+                    case '-':  value = value - temp;
+                }
+
+                input.setText(Double.toString(value));
             }
         });
 

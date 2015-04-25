@@ -5,4 +5,10 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="calcButtons">
+        <item name="android:layout_width">80sp</item>
+        <item name="android:layout_height">85sp</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
 </resources>

@@ -14,12 +14,14 @@
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:id="@+id/editText"
-        android:text="@string/delete"
+        android:text=""
         android:textSize="35sp"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:background="#FFFFFF"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentTop="true"
+        android:gravity="right"
+        />
 
     <Button
         android:layout_width="wrap_content"
@@ -41,81 +43,67 @@
         android:layout_below="@+id/del"
         android:columnCount="4">
 
-        <Button
+        <Button style="@style/calcButtons"
             android:text="Sin"
-            android:id="@+id/sine"
-            android:height="100dp"/>
+            android:id="@+id/sine" />
 
-        <Button
+        <Button style="@style/calcButtons"
             android:text="Cos"
-            android:id="@+id/cosine"
-            android:height="100dp"/>
+            android:id="@+id/cosine"/>
 
-        <Button
+        <Button style="@style/calcButtons"
             android:text="Tan"
-            android:id="@+id/tangent"
-            android:height="100dp"/>
+            android:id="@+id/tangent"/>
 
-        <Button
-            android:text="i"
-            android:id="@+id/i"
-            android:height="100dp"/>
+        <Button style="@style/calcButtons"
+            android:text="="
+            android:id="@+id/equal"/>
 
-        <Button
+        <Button style="@style/calcButtons"
             android:text="ln"
-            android:id="@+id/ln"
-            android:height="100dp"/>
+            android:id="@+id/ln"/>
 
-        <Button
+        <Button style="@style/calcButtons"
             android:text="log"
-            android:id="@+id/log"
-            android:height="100dp"/>
+            android:id="@+id/log"/>
 
-        <Button
+        <Button style="@style/calcButtons"
             android:text="π"
-            android:id="@+id/pi"
-            android:height="100dp"/>
+            android:id="@+id/pi"/>
 
-        <Button
+        <Button style="@style/calcButtons"
             android:text="e"
-            android:id="@+id/e"
-            android:height="100dp"/>
+            android:id="@+id/e"/>
 
-        <Button
+        <Button style="@style/calcButtons"
             android:text="%"
-            android:id="@+id/mod"
-            android:height="100dp"/>
+            android:id="@+id/mod"/>
 
-        <Button
+        <Button style="@style/calcButtons"
             android:text="!"
-            android:id="@+id/factorial"
-            android:height="100dp"/>
+            android:id="@+id/factorial"/>
 
-        <Button
+        <Button style="@style/calcButtons"
             android:text="√"
-            android:id="@+id/root"
-            android:height="100dp"/>
+            android:id="@+id/root"/>
 
-        <Button
+        <Button style="@style/calcButtons"
             android:text="^"
-            android:id="@+id/power"
-            android:height="100dp"/>
+            android:id="@+id/power"/>
 
-        <Button
+        <Button style="@style/calcButtons"
             android:text="("
-            android:id="@+id/open"
-            android:height="100dp"/>
+            android:id="@+id/open"/>
 
-        <Button
+        <Button style="@style/calcButtons"
             android:text=")"
-            android:id="@+id/closed"
-            android:height="100dp"/>
+            android:id="@+id/closed"/>
 
-        <Button
-            android:text=""
-            android:height="100dp"/>
+        <Button style="@style/calcButtons"
+            android:text=""/>
 
-        <Button android:text=""/>
+        <Button style="@style/calcButtons"
+            android:text=""/>
 
     </GridLayout>
 
