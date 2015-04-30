@@ -26,8 +26,19 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/advanced"
+        android:textSize="24sp"
+        android:id="@+id/advanced"
+        android:layout_below="@+id/editText"
+        android:longClickable="false"
+        android:height="70dp"
+        android:width="150dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/delete"
-        android:textSize="30sp"
+        android:textSize="24sp"
         android:id="@+id/del"
         android:layout_below="@+id/editText"
         android:layout_alignEnd="@+id/editText"
@@ -46,99 +57,67 @@
 
         <Button style="@style/calcButtons"
             android:text="7"
-            android:id="@+id/seven"
-            android:layout_column="0"
-            android:layout_row="0" />
+            android:id="@+id/seven"/>
 
         <Button style="@style/calcButtons"
             android:text="8"
-            android:id="@+id/eight"
-            android:layout_column="1"
-            android:layout_row="0" />
+            android:id="@+id/eight" />
 
         <Button style="@style/calcButtons"
             android:text="9"
-            android:id="@+id/nine"
-            android:layout_column="2"
-            android:layout_row="0" />
+            android:id="@+id/nine"/>
 
         <Button style="@style/calcButtons"
             android:text="/"
-            android:id="@+id/divide"
-            android:layout_column="3"
-            android:layout_row="0" />
+            android:id="@+id/divide"/>
 
         <Button style="@style/calcButtons"
             android:text="4"
-            android:id="@+id/four"
-            android:layout_column="0"
-            android:layout_row="1" />
+            android:id="@+id/four"/>
 
         <Button style="@style/calcButtons"
             android:text="5"
-            android:id="@+id/five"
-            android:layout_column="1"
-            android:layout_row="1" />
+            android:id="@+id/five"/>
 
         <Button style="@style/calcButtons"
             android:text="6"
-            android:id="@+id/six"
-            android:layout_column="2"
-            android:layout_row="1" />
+            android:id="@+id/six"/>
 
         <Button style="@style/calcButtons"
             android:text="x"
-            android:id="@+id/multiply"
-            android:layout_column="3"
-            android:layout_row="1" />
+            android:id="@+id/multiply"/>
 
         <Button style="@style/calcButtons"
             android:text="1"
-            android:id="@+id/one"
-            android:layout_column="0"
-            android:layout_row="2" />
+            android:id="@+id/one"/>
 
         <Button style="@style/calcButtons"
             android:text="2"
-            android:id="@+id/two"
-            android:layout_column="1"
-            android:layout_row="2" />
+            android:id="@+id/two"/>
 
         <Button style="@style/calcButtons"
             android:text="3"
-            android:id="@+id/three"
-            android:layout_column="2"
-            android:layout_row="2" />
+            android:id="@+id/three"/>
 
         <Button style="@style/calcButtons"
             android:text="-"
-            android:id="@+id/minus"
-            android:layout_column="3"
-            android:layout_row="2" />
+            android:id="@+id/minus"/>
 
         <Button style="@style/calcButtons"
             android:text="."
-            android:id="@+id/decimal"
-            android:layout_column="0"
-            android:layout_row="3" />
+            android:id="@+id/decimal"/>
 
         <Button style="@style/calcButtons"
             android:text="0"
-            android:id="@+id/zero"
-            android:layout_column="1"
-            android:layout_row="3" />
+            android:id="@+id/zero"/>
 
         <Button style="@style/calcButtons"
             android:text="="
-            android:id="@+id/equal"
-            android:layout_column="2"
-            android:layout_row="3" />
+            android:id="@+id/equal"/>
 
         <Button style="@style/calcButtons"
             android:text="+"
-            android:id="@+id/plus"
-            android:layout_column="3"
-            android:layout_row="3" />
+            android:id="@+id/plus"/>
 
     </GridLayout>
 

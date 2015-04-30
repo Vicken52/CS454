@@ -26,8 +26,19 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/simple"
+        android:textSize="24sp"
+        android:id="@+id/simple"
+        android:layout_below="@+id/editText"
+        android:longClickable="false"
+        android:height="70dp"
+        android:width="150dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/delete"
-        android:textSize="30sp"
+        android:textSize="24sp"
         android:id="@+id/del"
         android:layout_below="@+id/editText"
         android:layout_alignEnd="@+id/editText"
