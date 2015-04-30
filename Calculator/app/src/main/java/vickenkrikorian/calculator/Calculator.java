@@ -9,14 +9,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Switch;
 
 
 public class Calculator extends ActionBarActivity {
     private EditText input;
-    private Button zero, one, two, three, four, five, six, seven, eight, nine;
-    private Button del, divide, multiply, subtract, add, decimal, equal;
-    private int actionLocation;
+    Button zero, one, two, three, four, five, six, seven, eight, nine;
+    Button del, advanced, divide, multiply, subtract, add, decimal, equal;
+    private int actionLocation = -1;
+    private boolean solution;
     private char action;
 
     @Override
@@ -25,6 +25,9 @@ public class Calculator extends ActionBarActivity {
         setContentView(R.layout.activity_calculator);
 
         input = (EditText)findViewById(R.id.editText);
+        disableSoftInputFromAppearing(input);
+
+        solution = false;
 
         zero = (Button)findViewById(R.id.zero);
         one = (Button)findViewById(R.id.one);
@@ -44,177 +47,315 @@ public class Calculator extends ActionBarActivity {
         add = (Button)findViewById(R.id.plus);
         decimal = (Button)findViewById(R.id.decimal);
         equal = (Button)findViewById(R.id.equal);
+        input.setSelection(input.getText().length());
 
         zero.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                input.setText(input.getText().append('0'));
+                if(solution)
+                {
+                    input.setText("");
+                    del.setText("Del");
+                    solution = false;
+                }
+
+                input.getText().insert(input.getSelectionStart(), "0");
             }
         });
 
         one.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                input.setText(input.getText().append('1'));
+                if(solution)
+                {
+                    input.setText("");
+                    del.setText("Del");
+                    solution = false;
+                }
+
+                input.getText().insert(input.getSelectionStart(), "1");
             }
         });
 
         two.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                input.setText(input.getText().append('2'));
+                if(solution)
+                {
+                    input.setText("");
+                    del.setText("Del");
+                    solution = false;
+                }
+
+                input.getText().insert(input.getSelectionStart(), "2");
             }
         });
 
         three.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                input.setText(input.getText().append('3'));
+                if(solution)
+                {
+                    input.setText("");
+                    del.setText("Del");
+                    solution = false;
+                }
+
+                input.getText().insert(input.getSelectionStart(), "3");
             }
         });
 
         four.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                input.setText(input.getText().append('4'));
+                if(solution)
+                {
+                    input.setText("");
+                    del.setText("Del");
+                    solution = false;
+                }
+
+                input.getText().insert(input.getSelectionStart(), "4");
             }
         });
 
         five.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                input.setText(input.getText().append('5'));
+                if(solution)
+                {
+                    input.setText("");
+                    del.setText("Del");
+                    solution = false;
+                }
+
+                input.getText().insert(input.getSelectionStart(), "5");
             }
         });
 
         six.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                input.setText(input.getText().append('6'));
+                if(solution)
+                {
+                    input.setText("");
+                    del.setText("Del");
+                    solution = false;
+                }
+
+                input.getText().insert(input.getSelectionStart(), "6");
             }
         });
 
         seven.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                input.setText(input.getText().append('7'));
+                if(solution)
+                {
+                    input.setText("");
+                    del.setText("Del");
+                    solution = false;
+                }
+
+                input.getText().insert(input.getSelectionStart(), "7");
             }
         });
 
         eight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                input.setText(input.getText().append('8'));
+                if(solution)
+                {
+                    input.setText("");
+                    del.setText("Del");
+                    solution = false;
+                }
+
+                input.getText().insert(input.getSelectionStart(), "8");
             }
         });
 
         nine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                input.setText(input.getText().append('9'));
+                if(solution)
+                {
+                    input.setText("");
+                    del.setText("Del");
+                    solution = false;
+                }
+
+                input.getText().insert(input.getSelectionStart(), "9");
             }
         });
 
         decimal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                input.setText(input.getText().append('.'));
+                input.getText().insert(input.getSelectionStart(), ".");
+                del.setText("Del");
+                solution = false;
             }
         });
 
         divide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(input.getText().charAt(input.getText().length()-1) == '/' ||
+                if(actionLocation != -1)
+                {
+                    double value = solve(String.valueOf(input.getText()), actionLocation, action);
+
+                    actionLocation = -1;
+
+                    input.setText(Double.toString(value));
+                    input.setSelection(input.getText().length());
+                }
+                else if(input.getText().charAt(input.getText().length()-1) == '/' ||
                         input.getText().charAt(input.getText().length()-1) == 'x' ||
                         input.getText().charAt(input.getText().length()-1) == '-' ||
                         input.getText().charAt(input.getText().length()-1) == '+')
                 {
                     input.setText(input.getText().subSequence(0, input.getText().length() - 1));
                 }
-                input.setText(input.getText().append('/'));
+                input.getText().insert(input.getSelectionStart(), "/");
 
                 action = '/';
                 actionLocation = input.getText().length() - 1;
+                del.setText("Del");
+                solution = false;
             }
         });
 
         multiply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(input.getText().charAt(input.getText().length()-1) == '/' ||
+                if(actionLocation != -1)
+                {
+                    double value = solve(String.valueOf(input.getText()), actionLocation, action);
+
+                    actionLocation = -1;
+
+                    input.setText(Double.toString(value));
+                    input.setSelection(input.getText().length());
+                }
+                else if(input.getText().charAt(input.getText().length()-1) == '/' ||
                         input.getText().charAt(input.getText().length()-1) == 'x' ||
                         input.getText().charAt(input.getText().length()-1) == '-' ||
                         input.getText().charAt(input.getText().length()-1) == '+')
                 {
                     input.setText(input.getText().subSequence(0, input.getText().length() - 1));
                 }
-                input.setText(input.getText().append('x'));
+                input.getText().insert(input.getSelectionStart(), "x");
 
                 action = '*';
                 actionLocation = input.getText().length() - 1;
+                del.setText("Del");
+                solution = false;
             }
         });
 
         subtract.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(input.getText().charAt(input.getText().length()-1) == '/' ||
+                if(actionLocation != -1)
+                {
+                    double value = solve(String.valueOf(input.getText()), actionLocation, action);
+
+                    actionLocation = -1;
+
+                    input.setText(Double.toString(value));
+                    input.setSelection(input.getText().length());
+                }
+                else if(input.getText().charAt(input.getText().length()-1) == '/' ||
                         input.getText().charAt(input.getText().length()-1) == 'x' ||
                         input.getText().charAt(input.getText().length()-1) == '-' ||
                         input.getText().charAt(input.getText().length()-1) == '+')
                 {
                     input.setText(input.getText().subSequence(0, input.getText().length() - 1));
                 }
-                input.setText(input.getText().append('-'));
+                input.getText().insert(input.getSelectionStart(), "-");
 
                 action = '-';
                 actionLocation = input.getText().length() - 1;
+                del.setText("Del");
+                solution = false;
             }
         });
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(input.getText().charAt(input.getText().length()-1) == '/' ||
+                if(actionLocation != -1)
+                {
+                    double value = solve(String.valueOf(input.getText()), actionLocation, action);
+
+                    actionLocation = -1;
+
+                    input.setText(Double.toString(value));
+                    input.setSelection(input.getText().length());
+                }
+                else if(input.getText().charAt(input.getText().length()-1) == '/' ||
                         input.getText().charAt(input.getText().length()-1) == 'x' ||
                         input.getText().charAt(input.getText().length()-1) == '-' ||
                         input.getText().charAt(input.getText().length()-1) == '+')
                 {
                     input.setText(input.getText().subSequence(0, input.getText().length() - 1));
                 }
-                input.setText(input.getText().append('+'));
+                input.getText().insert(input.getSelectionStart(), "+");
 
                 action = '+';
                 actionLocation = input.getText().length() - 1;
+                del.setText("Del");
+                solution = false;
             }
         });
 
         equal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                double value;
-                double temp;
-                String text = String.valueOf(input.getText());
+                double value = solve(String.valueOf(input.getText()), actionLocation, action);
 
-                value = Double.parseDouble(text.substring(0, actionLocation - 1));
-                temp = Double.parseDouble(text.substring(actionLocation));
+                actionLocation = -1;
 
-                switch (action) {
-                    case '/':  value = value / temp;
-                    case '*':  value = value * temp;
-                    case '+':  value = value + temp;
-                    case '-':  value = value - temp;
-                }
+                solution = true;
+                del.setText("Clear");
 
                 input.setText(Double.toString(value));
+                input.setSelection(input.getText().length());
             }
         });
 
         del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                input.setText(input.getText().subSequence(0, input.getText().length()-1));
+                if(solution)
+                {
+                    input.setText("");
+                    del.setText("Del");
+                    solution = false;
+                }
+                else if(input.getText().length() > 0)
+                {
+                    input.setText(input.getText().subSequence(0, input.getText().length()-1));
+                    input.setSelection(input.getText().length());
+                }
+            }
+        });
+
+        advanced.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(solution)
+                {
+                    input.setText("");
+                    del.setText("Del");
+                    solution = false;
+                }
+                else if(input.getText().length() > 0)
+                {
+                    input.setText(input.getText().subSequence(0, input.getText().length()-1));
+                    input.setSelection(input.getText().length());
+                }
             }
         });
     }
@@ -255,5 +396,33 @@ public class Calculator extends ActionBarActivity {
             editText.setRawInputType(InputType.TYPE_NULL);
             editText.setFocusable(true);
         }
+    }
+
+    public static double solve(String inputText, int actionLocation, char action)
+    {
+        double value;
+        double temp;
+
+        System.out.println(inputText.substring(0, actionLocation));
+
+        value = Double.parseDouble(inputText.substring(0, actionLocation));
+        temp = Double.parseDouble(inputText.substring(actionLocation + 1));
+
+        switch (action) {
+            case '/':
+                value = value / temp;
+                break;
+            case '*':
+                value = value * temp;
+                break;
+            case '+':
+                value = value + temp;
+                break;
+            case '-':
+                value = value - temp;
+                break;
+        }
+
+        return value;
     }
 }
