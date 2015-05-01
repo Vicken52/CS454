@@ -1,5 +1,6 @@
 package vickenkrikorian.calculator;
 
+import android.content.Intent;
 import android.os.Build;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -15,7 +16,8 @@ public class Calculator extends ActionBarActivity {
     private EditText input;
     Button zero, one, two, three, four, five, six, seven, eight, nine;
     Button del, advanced, divide, multiply, subtract, add, decimal, equal;
-    private int actionLocation = -1;
+    private int actionLocation;
+    private String inputText = "";
     private boolean solution;
     private char action;
 
@@ -24,10 +26,16 @@ public class Calculator extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculator);
 
+        Intent intent = getIntent();
+        action = intent.getCharExtra("action", '0');
+        actionLocation = intent.getIntExtra("actionLocation", -1);
+        solution = intent.getBooleanExtra("solution", false);
+        inputText = intent.getStringExtra("inputText");
+
         input = (EditText)findViewById(R.id.editText);
         disableSoftInputFromAppearing(input);
 
-        solution = false;
+        input.setText(inputText);
 
         zero = (Button)findViewById(R.id.zero);
         one = (Button)findViewById(R.id.one);
@@ -47,6 +55,7 @@ public class Calculator extends ActionBarActivity {
         add = (Button)findViewById(R.id.plus);
         decimal = (Button)findViewById(R.id.decimal);
         equal = (Button)findViewById(R.id.equal);
+        advanced = (Button)findViewById(R.id.advanced);
         input.setSelection(input.getText().length());
 
         zero.setOnClickListener(new View.OnClickListener() {
@@ -205,15 +214,15 @@ public class Calculator extends ActionBarActivity {
                 {
                     double value = solve(String.valueOf(input.getText()), actionLocation, action);
 
-                    actionLocation = -1;
-
                     input.setText(Double.toString(value));
                     input.setSelection(input.getText().length());
                 }
-                else if(input.getText().charAt(input.getText().length()-1) == '/' ||
-                        input.getText().charAt(input.getText().length()-1) == 'x' ||
-                        input.getText().charAt(input.getText().length()-1) == '-' ||
-                        input.getText().charAt(input.getText().length()-1) == '+')
+                else if(input.getText().charAt(input.getText().length() - 1) == '/' ||
+                        input.getText().charAt(input.getText().length() - 1) == 'x' ||
+                        input.getText().charAt(input.getText().length() - 1) == '-' ||
+                        input.getText().charAt(input.getText().length() - 1) == '+' ||
+                        input.getText().charAt(input.getText().length() - 1) == '%' ||
+                        input.getText().charAt(input.getText().length() - 1) == '^')
                 {
                     input.setText(input.getText().subSequence(0, input.getText().length() - 1));
                 }
@@ -233,15 +242,15 @@ public class Calculator extends ActionBarActivity {
                 {
                     double value = solve(String.valueOf(input.getText()), actionLocation, action);
 
-                    actionLocation = -1;
-
                     input.setText(Double.toString(value));
                     input.setSelection(input.getText().length());
                 }
-                else if(input.getText().charAt(input.getText().length()-1) == '/' ||
-                        input.getText().charAt(input.getText().length()-1) == 'x' ||
-                        input.getText().charAt(input.getText().length()-1) == '-' ||
-                        input.getText().charAt(input.getText().length()-1) == '+')
+                else if(input.getText().charAt(input.getText().length() - 1) == '/' ||
+                        input.getText().charAt(input.getText().length() - 1) == 'x' ||
+                        input.getText().charAt(input.getText().length() - 1) == '-' ||
+                        input.getText().charAt(input.getText().length() - 1) == '+' ||
+                        input.getText().charAt(input.getText().length() - 1) == '%' ||
+                        input.getText().charAt(input.getText().length() - 1) == '^')
                 {
                     input.setText(input.getText().subSequence(0, input.getText().length() - 1));
                 }
@@ -261,15 +270,15 @@ public class Calculator extends ActionBarActivity {
                 {
                     double value = solve(String.valueOf(input.getText()), actionLocation, action);
 
-                    actionLocation = -1;
-
                     input.setText(Double.toString(value));
                     input.setSelection(input.getText().length());
                 }
-                else if(input.getText().charAt(input.getText().length()-1) == '/' ||
-                        input.getText().charAt(input.getText().length()-1) == 'x' ||
-                        input.getText().charAt(input.getText().length()-1) == '-' ||
-                        input.getText().charAt(input.getText().length()-1) == '+')
+                else if(input.getText().charAt(input.getText().length() - 1) == '/' ||
+                        input.getText().charAt(input.getText().length() - 1) == 'x' ||
+                        input.getText().charAt(input.getText().length() - 1) == '-' ||
+                        input.getText().charAt(input.getText().length() - 1) == '+' ||
+                        input.getText().charAt(input.getText().length() - 1) == '%' ||
+                        input.getText().charAt(input.getText().length() - 1) == '^')
                 {
                     input.setText(input.getText().subSequence(0, input.getText().length() - 1));
                 }
@@ -289,15 +298,15 @@ public class Calculator extends ActionBarActivity {
                 {
                     double value = solve(String.valueOf(input.getText()), actionLocation, action);
 
-                    actionLocation = -1;
-
                     input.setText(Double.toString(value));
                     input.setSelection(input.getText().length());
                 }
-                else if(input.getText().charAt(input.getText().length()-1) == '/' ||
-                        input.getText().charAt(input.getText().length()-1) == 'x' ||
-                        input.getText().charAt(input.getText().length()-1) == '-' ||
-                        input.getText().charAt(input.getText().length()-1) == '+')
+                else if(input.getText().charAt(input.getText().length() - 1) == '/' ||
+                        input.getText().charAt(input.getText().length() - 1) == 'x' ||
+                        input.getText().charAt(input.getText().length() - 1) == '-' ||
+                        input.getText().charAt(input.getText().length() - 1) == '+' ||
+                        input.getText().charAt(input.getText().length() - 1) == '%' ||
+                        input.getText().charAt(input.getText().length() - 1) == '^')
                 {
                     input.setText(input.getText().subSequence(0, input.getText().length() - 1));
                 }
@@ -334,6 +343,17 @@ public class Calculator extends ActionBarActivity {
                     del.setText("Del");
                     solution = false;
                 }
+                else if(input.getText().charAt(input.getText().length() - 1) == '/' ||
+                        input.getText().charAt(input.getText().length() - 1) == 'x' ||
+                        input.getText().charAt(input.getText().length() - 1) == '-' ||
+                        input.getText().charAt(input.getText().length() - 1) == '+' ||
+                        input.getText().charAt(input.getText().length() - 1) == '%' ||
+                        input.getText().charAt(input.getText().length() - 1) == '^')
+                {
+                    actionLocation = -1;
+                    input.setText(input.getText().subSequence(0, input.getText().length()-1));
+                    input.setSelection(input.getText().length());
+                }
                 else if(input.getText().length() > 0)
                 {
                     input.setText(input.getText().subSequence(0, input.getText().length()-1));
@@ -345,17 +365,13 @@ public class Calculator extends ActionBarActivity {
         advanced.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(solution)
-                {
-                    input.setText("");
-                    del.setText("Del");
-                    solution = false;
-                }
-                else if(input.getText().length() > 0)
-                {
-                    input.setText(input.getText().subSequence(0, input.getText().length()-1));
-                    input.setSelection(input.getText().length());
-                }
+                Intent intent = new Intent(Calculator.this, Advanced.class);
+                intent.putExtra("action", action);
+                intent.putExtra("actionLocation", actionLocation);
+                intent.putExtra("solution", solution);
+                intent.putExtra("inputText", input.getText().toString());
+                intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                startActivity(intent);
             }
         });
     }
@@ -420,6 +436,12 @@ public class Calculator extends ActionBarActivity {
                 break;
             case '-':
                 value = value - temp;
+                break;
+            case '%':
+                value = value % temp;
+                break;
+            case '^':
+                value = Math.pow(value, temp);
                 break;
         }
 
