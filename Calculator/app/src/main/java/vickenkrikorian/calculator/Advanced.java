@@ -76,6 +76,8 @@ public class Advanced extends ActionBarActivity {
                     del2.setText("Clear");
                     input2.setText(Double.toString(Math.round(Math.sin(Double.parseDouble(String.valueOf(input2.getText()).replaceAll("[(]",""))) * 10000.0) / 10000.0));
                 }
+
+                input2.setSelection(input2.getText().length());
             }
         });
 
@@ -88,6 +90,8 @@ public class Advanced extends ActionBarActivity {
                     del2.setText("Clear");
                     input2.setText(Double.toString(Math.round(Math.cos(Double.parseDouble(String.valueOf(input2.getText()).replaceAll("[(]",""))) * 10000.0) / 10000.0));
                 }
+
+                input2.setSelection(input2.getText().length());
             }
         });
 
@@ -99,6 +103,8 @@ public class Advanced extends ActionBarActivity {
                     del2.setText("Clear");
                     input2.setText(Double.toString(Math.round(Math.tan(Double.parseDouble(String.valueOf(input2.getText()).replaceAll("[(]",""))) * 10000.0) / 10000.0));
                 }
+
+                input2.setSelection(input2.getText().length());
             }
         });
 
@@ -110,6 +116,8 @@ public class Advanced extends ActionBarActivity {
                     del2.setText("Clear");
                     input2.setText(Double.toString(Math.round(Math.log(Double.parseDouble(String.valueOf(input2.getText()).replaceAll("[(]",""))) * 10000.0) / 10000.0));
                 }
+
+                input2.setSelection(input2.getText().length());
             }
         });
 
@@ -128,6 +136,8 @@ public class Advanced extends ActionBarActivity {
                     del2.setText("Clear");
                     input2.setText(Double.toString(Math.round(Math.log10(Double.parseDouble(String.valueOf(input2.getText()).replaceAll("[(]",""))) * 10000.0) / 10000.0));
                 }
+
+                input2.setSelection(input2.getText().length());
             }
         });
 
@@ -149,6 +159,7 @@ public class Advanced extends ActionBarActivity {
                 }
 
                 input2.getText().insert(input2.getSelectionStart(), "3.14159");
+                input2.setSelection(input2.getText().length());
             }
         });
 
@@ -170,20 +181,14 @@ public class Advanced extends ActionBarActivity {
                 }
 
                 input2.getText().insert(input2.getSelectionStart(), "2.71828");
+                input2.setSelection(input2.getText().length());
             }
         });
 
         mod.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (actionLocation != -1)
-                {
-                    double value = Double.valueOf(solve(String.valueOf(input2.getText())));
-
-                    input2.setText(Double.toString(value));
-                    input2.setSelection(input2.getText().length());
-                }
-                else if(input2.getText().length() == 0)
+                if(input2.getText().length() == 0)
                 { }
                 else if (input2.getText().charAt(input2.getText().length() - 1) == '/' ||
                         input2.getText().charAt(input2.getText().length() - 1) == 'x' ||
@@ -193,6 +198,7 @@ public class Advanced extends ActionBarActivity {
                         input2.getText().charAt(input2.getText().length() - 1) == '^')
                 {
                     input2.setText(input2.getText().subSequence(0, input2.getText().length() - 1));
+                    input2.setSelection(input2.getText().length());
 
                     input2.getText().insert(input2.getSelectionStart(), "%");
 
@@ -200,6 +206,13 @@ public class Advanced extends ActionBarActivity {
                     actionLocation = input2.getText().length() - 1;
                     del2.setText("Del");
                     solution = false;
+                }
+                else if(actionLocation != -1)
+                {
+                    double value = Double.valueOf(solve(String.valueOf(input2.getText())));
+
+                    input2.setText(Double.toString(value));
+                    input2.setSelection(input2.getText().length());
                 }
                 else
                 {
@@ -210,6 +223,8 @@ public class Advanced extends ActionBarActivity {
                     del2.setText("Del");
                     solution = false;
                 }
+
+                input2.setSelection(input2.getText().length());
             }
         });
 
@@ -231,6 +246,7 @@ public class Advanced extends ActionBarActivity {
                     }
 
                     input2.setText(Double.toString(fact));
+                    input2.setSelection(input2.getText().length());
                 }
             }
         });
@@ -243,6 +259,7 @@ public class Advanced extends ActionBarActivity {
                     solution = true;
                     del2.setText("Clear");
                     input2.setText(Double.toString(Math.round(Math.sqrt(Double.parseDouble(String.valueOf(input2.getText()).replaceAll("[(]",""))) * 10000.0) / 10000.0));
+                    input2.setSelection(input2.getText().length());
                 }
             }
         });
@@ -250,13 +267,7 @@ public class Advanced extends ActionBarActivity {
         power.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (actionLocation != -1) {
-                    double value = Double.valueOf(solve(String.valueOf(input2.getText())));
-
-                    input2.setText(Double.toString(value));
-                    input2.setSelection(input2.getText().length());
-                }
-                else if(input2.getText().length() == 0)
+                if(input2.getText().length() == 0)
                 { }
                 else if (input2.getText().charAt(input2.getText().length() - 1) == '/' ||
                         input2.getText().charAt(input2.getText().length() - 1) == 'x' ||
@@ -266,6 +277,7 @@ public class Advanced extends ActionBarActivity {
                         input2.getText().charAt(input2.getText().length() - 1) == '^')
                 {
                     input2.setText(input2.getText().subSequence(0, input2.getText().length() - 1));
+                    input2.setSelection(input2.getText().length());
 
                     input2.getText().insert(input2.getSelectionStart(), "^");
 
@@ -273,6 +285,13 @@ public class Advanced extends ActionBarActivity {
                     actionLocation = input2.getText().length() - 1;
                     del2.setText("Del");
                     solution = false;
+                }
+                else if(actionLocation != -1)
+                {
+                    double value = Double.valueOf(solve(String.valueOf(input2.getText())));
+
+                    input2.setText(Double.toString(value));
+                    input2.setSelection(input2.getText().length());
                 }
                 else
                 {
@@ -283,6 +302,8 @@ public class Advanced extends ActionBarActivity {
                     del2.setText("Del");
                     solution = false;
                 }
+
+                input2.setSelection(input2.getText().length());
             }
         });
 
@@ -413,7 +434,7 @@ public class Advanced extends ActionBarActivity {
         }
     }
 
-    public static String solve(String inputText)
+    public String solve(String inputText)
     {
         String tempS = "";
         double value = 0.0;
@@ -425,7 +446,7 @@ public class Advanced extends ActionBarActivity {
             if(inputText.charAt(i) == '(')
             { }
             else if(inputText.charAt(i) == 'x' || inputText.charAt(i) == '/' || inputText.charAt(i) == '+' ||
-                    inputText.charAt(i) == '-' || inputText.charAt(i) == '^' || inputText.charAt(i) == '%' && i != 0)
+                    inputText.charAt(i) == '-' && i != 0 || inputText.charAt(i) == '^' || inputText.charAt(i) == '%')
             {
                 value = Double.parseDouble(tempS);
 
@@ -443,7 +464,16 @@ public class Advanced extends ActionBarActivity {
         switch (action)
         {
             case '/':
-                value = value / temp;
+                if(temp == 0.0)
+                {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Answer Undefined!", Toast.LENGTH_SHORT);
+                    toast.show();
+                    value = 0.0;
+                }
+                else
+                {
+                    value = value / temp;
+                }
                 break;
             case 'x':
                 value = value * temp;
