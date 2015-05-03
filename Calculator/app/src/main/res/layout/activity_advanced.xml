@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:id="@+id/editText2"
-        android:text=""
+        android:text="0"
         android:textSize="35sp"
         android:maxLength="16"
         android:layout_alignParentStart="true"
@@ -88,7 +88,7 @@
             android:id="@+id/e"/>
 
         <Button style="@style/calcButtons"
-            android:text="%"
+            android:text="mod"
             android:id="@+id/mod"/>
 
         <Button style="@style/calcButtons"

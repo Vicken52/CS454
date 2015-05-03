@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
 public class Advanced extends ActionBarActivity {
@@ -17,7 +18,8 @@ public class Advanced extends ActionBarActivity {
     Button simple, del2, sine, cosine, tangent, equal2, ln, log;
     Button pi, e, mod, factorial, root, power, open, closed;
     private int actionLocation;
-    private String inputText = "";
+    private int bracket;
+    private String inputText = "0";
     private boolean solution;
     private char action;
 
@@ -29,13 +31,21 @@ public class Advanced extends ActionBarActivity {
         Intent intent = getIntent();
         action = intent.getCharExtra("action", '0');
         actionLocation = intent.getIntExtra("actionLocation", -1);
+        bracket = intent.getIntExtra("bracket", -1);
         solution = intent.getBooleanExtra("solution", false);
         inputText = intent.getStringExtra("inputText");
 
         input2 = (EditText)findViewById(R.id.editText2);
         disableSoftInputFromAppearing(input2);
 
-        input2.setText(inputText);
+        if(inputText == null)
+        {
+            input2.setText("0");
+        }
+        else
+        {
+            input2.setText(inputText);
+        }
 
         simple = (Button) findViewById(R.id.simple);
         del2 = (Button)findViewById(R.id.del2);
@@ -64,7 +74,7 @@ public class Advanced extends ActionBarActivity {
                 {
                     solution = true;
                     del2.setText("Clear");
-                    input2.setText(Double.toString(Math.sin(Double.parseDouble(String.valueOf(input2.getText())))));
+                    input2.setText(Double.toString(Math.round(Math.sin(Double.parseDouble(String.valueOf(input2.getText()).replaceAll("[(]",""))) * 10000.0) / 10000.0));
                 }
             }
         });
@@ -76,7 +86,7 @@ public class Advanced extends ActionBarActivity {
                 {
                     solution = true;
                     del2.setText("Clear");
-                    input2.setText(Double.toString(Math.cos(Double.parseDouble(String.valueOf(input2.getText())))));
+                    input2.setText(Double.toString(Math.round(Math.cos(Double.parseDouble(String.valueOf(input2.getText()).replaceAll("[(]",""))) * 10000.0) / 10000.0));
                 }
             }
         });
@@ -87,7 +97,7 @@ public class Advanced extends ActionBarActivity {
                 if (actionLocation == -1) {
                     solution = true;
                     del2.setText("Clear");
-                    input2.setText(Double.toString(Math.tan(Double.parseDouble(String.valueOf(input2.getText())))));
+                    input2.setText(Double.toString(Math.round(Math.tan(Double.parseDouble(String.valueOf(input2.getText()).replaceAll("[(]",""))) * 10000.0) / 10000.0));
                 }
             }
         });
@@ -98,7 +108,7 @@ public class Advanced extends ActionBarActivity {
                 if (actionLocation == -1) {
                     solution = true;
                     del2.setText("Clear");
-                    input2.setText(Double.toString(Math.log(Double.parseDouble(String.valueOf(input2.getText())))));
+                    input2.setText(Double.toString(Math.round(Math.log(Double.parseDouble(String.valueOf(input2.getText()).replaceAll("[(]",""))) * 10000.0) / 10000.0));
                 }
             }
         });
@@ -106,10 +116,17 @@ public class Advanced extends ActionBarActivity {
         log.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (actionLocation == -1) {
+                if (String.valueOf(input2.getText()).equals("0"))
+                {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Answer Undefined!", Toast.LENGTH_SHORT);
+                    toast.show();
+                    del2.setText("Del");
+                    solution = false;
+                }
+                else if (actionLocation == -1) {
                     solution = true;
                     del2.setText("Clear");
-                    input2.setText(Double.toString(Math.log10(Double.parseDouble(String.valueOf(input2.getText())))));
+                    input2.setText(Double.toString(Math.round(Math.log10(Double.parseDouble(String.valueOf(input2.getText()).replaceAll("[(]",""))) * 10000.0) / 10000.0));
                 }
             }
         });
@@ -117,6 +134,13 @@ public class Advanced extends ActionBarActivity {
         pi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (String.valueOf(input2.getText()).equals("0") ||
+                        String.valueOf(input2.getText()).equals("2.71828") ||
+                        String.valueOf(input2.getText()).equals("3.14159") )
+                {
+                    input2.setText("");
+                }
+
                 if(solution)
                 {
                     input2.setText("");
@@ -131,7 +155,15 @@ public class Advanced extends ActionBarActivity {
         e.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (solution) {
+                if (String.valueOf(input2.getText()).equals("0") ||
+                        String.valueOf(input2.getText()).equals("2.71828") ||
+                        String.valueOf(input2.getText()).equals("3.14159") )
+                {
+                    input2.setText("");
+                }
+
+                if (solution)
+                {
                     input2.setText("");
                     del2.setText("Del");
                     solution = false;
@@ -146,11 +178,13 @@ public class Advanced extends ActionBarActivity {
             public void onClick(View v) {
                 if (actionLocation != -1)
                 {
-                    double value = solve(String.valueOf(input2.getText()), actionLocation, action);
+                    double value = Double.valueOf(solve(String.valueOf(input2.getText())));
 
                     input2.setText(Double.toString(value));
                     input2.setSelection(input2.getText().length());
                 }
+                else if(input2.getText().length() == 0)
+                { }
                 else if (input2.getText().charAt(input2.getText().length() - 1) == '/' ||
                         input2.getText().charAt(input2.getText().length() - 1) == 'x' ||
                         input2.getText().charAt(input2.getText().length() - 1) == '-' ||
@@ -159,25 +193,36 @@ public class Advanced extends ActionBarActivity {
                         input2.getText().charAt(input2.getText().length() - 1) == '^')
                 {
                     input2.setText(input2.getText().subSequence(0, input2.getText().length() - 1));
-                }
-                input2.getText().insert(input2.getSelectionStart(), "%");
 
-                action = '%';
-                actionLocation = input2.getText().length() - 1;
-                del2.setText("Del");
-                solution = false;
+                    input2.getText().insert(input2.getSelectionStart(), "%");
+
+                    action = '%';
+                    actionLocation = input2.getText().length() - 1;
+                    del2.setText("Del");
+                    solution = false;
+                }
+                else
+                {
+                    input2.getText().insert(input2.getSelectionStart(), "%");
+
+                    action = '%';
+                    actionLocation = input2.getText().length() - 1;
+                    del2.setText("Del");
+                    solution = false;
+                }
             }
         });
 
         factorial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (actionLocation == -1) {
+                if (actionLocation == -1 && input2.getText().length() != 0)
+                {
                     solution = true;
                     del2.setText("Clear");
 
                     double fact = 1.0;
-                    int temp = (int) Double.parseDouble(String.valueOf(input2.getText()));
+                    int temp = (int) Double.parseDouble(String.valueOf(input2.getText()).replaceAll("[(]",""));
 
                     while(temp > 0)
                     {
@@ -193,11 +238,11 @@ public class Advanced extends ActionBarActivity {
         root.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(actionLocation == -1)
+                if(actionLocation == -1 && input2.getText().length() != 0)
                 {
                     solution = true;
                     del2.setText("Clear");
-                    input2.setText(Double.toString(Math.sqrt(Double.parseDouble(String.valueOf(input2.getText())))));
+                    input2.setText(Double.toString(Math.round(Math.sqrt(Double.parseDouble(String.valueOf(input2.getText()).replaceAll("[(]",""))) * 10000.0) / 10000.0));
                 }
             }
         });
@@ -206,53 +251,78 @@ public class Advanced extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 if (actionLocation != -1) {
-                    double value = solve(String.valueOf(input2.getText()), actionLocation, action);
+                    double value = Double.valueOf(solve(String.valueOf(input2.getText())));
 
                     input2.setText(Double.toString(value));
                     input2.setSelection(input2.getText().length());
-                } else if (input2.getText().charAt(input2.getText().length() - 1) == '/' ||
+                }
+                else if(input2.getText().length() == 0)
+                { }
+                else if (input2.getText().charAt(input2.getText().length() - 1) == '/' ||
                         input2.getText().charAt(input2.getText().length() - 1) == 'x' ||
                         input2.getText().charAt(input2.getText().length() - 1) == '-' ||
                         input2.getText().charAt(input2.getText().length() - 1) == '+' ||
                         input2.getText().charAt(input2.getText().length() - 1) == '%' ||
-                        input2.getText().charAt(input2.getText().length() - 1) == '^') {
+                        input2.getText().charAt(input2.getText().length() - 1) == '^')
+                {
                     input2.setText(input2.getText().subSequence(0, input2.getText().length() - 1));
-                }
-                input2.getText().insert(input2.getSelectionStart(), "^");
 
-                action = '^';
-                actionLocation = input2.getText().length() - 1;
-                del2.setText("Del");
-                solution = false;
+                    input2.getText().insert(input2.getSelectionStart(), "^");
+
+                    action = '^';
+                    actionLocation = input2.getText().length() - 1;
+                    del2.setText("Del");
+                    solution = false;
+                }
+                else
+                {
+                    input2.getText().insert(input2.getSelectionStart(), "^");
+
+                    action = '^';
+                    actionLocation = input2.getText().length() - 1;
+                    del2.setText("Del");
+                    solution = false;
+                }
             }
         });
 
         open.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (solution) {
+                    input2.setText("");
+                    del2.setText("Del");
+                    solution = false;
+                }
 
+                input2.getText().insert(input2.getSelectionStart(), "(");
+                bracket = input2.getText().length() - 1;
             }
         });
 
         closed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                input2.setText(solve(input2.getText().toString().substring(bracket + 1)));
+                actionLocation = -1;
             }
         });
 
         equal2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                double value = solve(String.valueOf(input2.getText()), actionLocation, action);
+                if(actionLocation != -1)
+                {
+                    double value = Double.valueOf(solve(String.valueOf(input2.getText())));
 
-                actionLocation = -1;
+                    actionLocation = -1;
 
-                solution = true;
-                del2.setText("Clear");
+                    solution = true;
+                    del2.setText("Clear");
 
-                input2.setText(Double.toString(value));
-                input2.setSelection(input2.getText().length());
+                    input2.setText(Double.toString(value));
+                    input2.setSelection(input2.getText().length());
+                }
             }
         });
 
@@ -261,9 +331,15 @@ public class Advanced extends ActionBarActivity {
             public void onClick(View v) {
                 if(solution)
                 {
-                    input2.setText("");
+                    input2.setText("0");
                     del2.setText("Del");
                     solution = false;
+                }
+                else if(input2.getText().length() == 0)
+                { }
+                else if(input2.getText().length() == 1)
+                {
+                    input2.setText("0");
                 }
                 else if(input2.getText().charAt(input2.getText().length() - 1) == '/' ||
                         input2.getText().charAt(input2.getText().length() - 1) == 'x' ||
@@ -290,6 +366,7 @@ public class Advanced extends ActionBarActivity {
                 Intent intent = new Intent(Advanced.this, Calculator.class);
                 intent.putExtra("action", action);
                 intent.putExtra("actionLocation", actionLocation);
+                intent.putExtra("bracket", bracket);
                 intent.putExtra("solution", solution);
                 intent.putExtra("inputText", input2.getText().toString());
                 intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
@@ -336,21 +413,39 @@ public class Advanced extends ActionBarActivity {
         }
     }
 
-    public static double solve(String inputText, int actionLocation, char action)
+    public static String solve(String inputText)
     {
-        double value;
-        double temp;
+        String tempS = "";
+        double value = 0.0;
+        double temp = 0.0;
+        char action = 'q';
 
-        System.out.println(inputText.substring(0, actionLocation));
+        for(int i = 0; i < inputText.length(); i++)
+        {
+            if(inputText.charAt(i) == '(')
+            { }
+            else if(inputText.charAt(i) == 'x' || inputText.charAt(i) == '/' || inputText.charAt(i) == '+' ||
+                    inputText.charAt(i) == '-' || inputText.charAt(i) == '^' || inputText.charAt(i) == '%' && i != 0)
+            {
+                value = Double.parseDouble(tempS);
 
-        value = Double.parseDouble(inputText.substring(0, actionLocation));
-        temp = Double.parseDouble(inputText.substring(actionLocation + 1));
+                tempS = "";
+                action = inputText.charAt(i);
+            }
+            else
+            {
+                tempS += inputText.charAt(i);
+            }
+        }
 
-        switch (action) {
+        temp = Double.parseDouble(tempS);
+
+        switch (action)
+        {
             case '/':
                 value = value / temp;
                 break;
-            case '*':
+            case 'x':
                 value = value * temp;
                 break;
             case '+':
@@ -367,6 +462,8 @@ public class Advanced extends ActionBarActivity {
                 break;
         }
 
-        return value;
+        value = Math.round (value * 10000.0) / 10000.0;
+
+        return Double.toString(value);
     }
 }
